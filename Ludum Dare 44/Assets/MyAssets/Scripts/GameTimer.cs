@@ -7,44 +7,57 @@ namespace AdrianKovatana
     {
 #pragma warning disable
         [SerializeField]
-        private TextMeshProUGUI _textHHMMSS;
+        private FloatVariable _currentTime;
+
+        [Header("UI Text")]
+        [SerializeField]
+        private TextMeshProUGUI _textHours;
+        [SerializeField]
+        private TextMeshProUGUI _textMinutes;
+        [SerializeField]
+        private TextMeshProUGUI _textSeconds;
         [SerializeField]
         private TextMeshProUGUI _textMilliseconds;
 #pragma warning restore
 
-        private float _currentTime;
-
         private void Awake()
         {
-            _currentTime = 0f;
+            _currentTime.ResetValue();
         }
 
         private void Update()
         {
-            _currentTime += Time.unscaledDeltaTime;
+            _currentTime.value += Time.deltaTime;
             UpdateUI();
         }
 
         public void UpdateUI()
         {
-            _textHHMMSS.text = GetTime();
-            _textMilliseconds.text = GetMilliseconds();
+            _textHours.text = GetHours();
+            _textMinutes.text = ":" + GetMinutes();
+            _textSeconds.text = ":" + GetSeconds();
+            _textMilliseconds.text = ":" + GetMilliseconds();
         }
 
-        public string GetTime()
+        public string GetHours()
         {
-            string sHours, sMinutes, sSeconds;
+            return ((int)(_currentTime.value / 3600f) % 24).ToString("D2");
+        }
 
-            sHours = Mathf.Floor(_currentTime / 3600).ToString("00");
-            sMinutes = Mathf.Floor(_currentTime / 60).ToString("00");
-            sSeconds = (_currentTime % 60).ToString("00");
+        public string GetMinutes()
+        {
+            return ((int)(_currentTime.value / 60f) % 60).ToString("D2");
+        }
 
-            return sHours + ":" + sMinutes + ":" + sSeconds;
+        public string GetSeconds()
+        {
+            //86400 seconds is 1 day
+            return ((int)(_currentTime.value % 60f)).ToString("D2");
         }
 
         public string GetMilliseconds()
         {
-            return ":" + ((_currentTime * 1000) % 1000).ToString("000");
+            return ((int)(_currentTime.value * 1000f) % 1000).ToString("D3");
         }
     }
 }
