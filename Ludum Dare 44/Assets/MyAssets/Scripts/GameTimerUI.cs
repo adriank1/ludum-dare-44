@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace AdrianKovatana
 {
-    public class GameTimer : MonoBehaviour
+    public class GameTimerUI : MonoBehaviour
     {
 #pragma warning disable
         [SerializeField]
@@ -19,15 +19,9 @@ namespace AdrianKovatana
         [SerializeField]
         private TextMeshProUGUI _textMilliseconds;
 #pragma warning restore
-
-        private void Awake()
-        {
-            _currentTime.ResetValue();
-        }
-
+        
         private void Update()
         {
-            _currentTime.value += Time.deltaTime;
             UpdateUI();
         }
 
@@ -51,7 +45,6 @@ namespace AdrianKovatana
 
         public string GetSeconds()
         {
-            //86400 seconds is 1 day
             return ((int)(_currentTime.value % 60f)).ToString("D2");
         }
 
