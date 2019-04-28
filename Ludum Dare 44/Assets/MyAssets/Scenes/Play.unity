@@ -1079,6 +1079,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameOverCanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 7143329738625223886, guid: 6e2ccdd9b8c85b54facb8f1e3649673e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7143329738625223923, guid: 6e2ccdd9b8c85b54facb8f1e3649673e,
         type: 3}
       propertyPath: m_LocalPosition.x
